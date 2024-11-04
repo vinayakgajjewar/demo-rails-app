@@ -1,0 +1,45 @@
+<%= link_to "<- Back to all posts", articles_path, class: "text-slate-400 hover:text-slate-600" %>
+
+<h1 class="text-4xl mb-4 text-red-700 font-bold my-2">
+  <%= @article.title %>
+</h1>
+
+<p class="text-slate-400 text-sm">
+  By
+  <% if !@article.user.nil? %>
+    <span class="font-bold">
+      <%= @article.user.username %>
+    </span>
+  <% else %>
+  <span class="font-bold">
+    Anonymous author
+  </span>
+  <% end %>
+</p>
+
+<div class="px-4 py-2 rounded-md border-2 mt-2">
+  <%= @article.body %>
+</div>
+
+<% if !@article.user.nil? && @article.user.username == session[:current_username] %>
+  <ul>
+    <li>
+      <%= link_to "Edit", edit_article_path(@article), class: "inline-block bg-red-700 hover:bg-red-800 text-white rounded-md p-2 mt-2" %>
+    </li>
+
+    <li>
+      <%= link_to "Destroy", article_path(@article), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "inline-block bg-red-700 hover:bg-red-800 text-white rounded-md p-2 mt-2" %>
+    </li>
+  </ul>
+<% end %>
+
+<h2>
+  Comments
+</h2>
+<%= render @article.comments %>
+
+<h2 class="text-2xl font-bold text-slate-600 my-2">
+  Add a comment:
+</h2>
+
+<%= render "comments/form", article: @article %>

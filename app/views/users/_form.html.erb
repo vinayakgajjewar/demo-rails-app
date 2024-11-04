@@ -1,0 +1,9 @@
+<%= form_with model: user do |form| %>
+  <div>
+    <%= form.label :username %>
+    <%= form.text_field :username, class:"border-2 rounded-md my-2" %>
+  </div>
+  <div>
+    <%= form.submit class:"inline-block bg-red-700 hover:bg-red-800 text-white rounded-md p-2 my-2" %>
+  </div>
+<% end %>

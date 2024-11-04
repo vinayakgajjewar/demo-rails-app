@@ -1,0 +1,49 @@
+<%= form_with model: article do |form| %>
+  <div>
+    <%= form.label :title %>
+    <br>
+    <%= form.text_field :title, class:"border-2 rounded-md my-2" %>
+    <% article.errors.full_messages_for(:title).each do |message| %>
+    <div>
+      <%= message %>
+    </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :body %>
+    <br>
+    <%= form.text_area :body, class:"border-2 rounded-md my-2" %>
+    <br>
+    <% article.errors.full_messages_for(:body).each do |message| %>
+    <div class="border-2 rounded-md my-2 border-red-700 p-2">
+      <%= message %>
+    </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :status %>
+    <br>
+    <%= form.select :status, Visible::VALID_STATUSES, selected: article.status || "public", class:"border-2 rounded-md my-2" %>
+  </div>
+
+  <div>
+    <% if @article.errors.any? %>
+    <span class="text-sm text-slate-400 font-bold">
+      <%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved:
+    </span>
+      <ul>
+        <% @article.errors.full_messages.each do |message| %>
+        <li class="px-4 py-2 border-2 rounded-md border-red-500">
+          <%= message %>
+        </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit class:"inline-block bg-red-700 hover:bg-red-800 text-white rounded-md p-2 my-2" %>
+  </div>
+<% end %>
